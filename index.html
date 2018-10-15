@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tb try</title>
+  <style>
+    .warning {
+      color: red;
+    }
+
+    table {
+      border: 1px solid #d8d8d8;
+      border-collapse: collapse;
+    }
+
+    tr {
+      border-bottom: 1px solid #d8d8d8;
+      cursor: pointer;
+    }
+
+    tr:last-child {
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tbody>
+      <tr>
+        <th>序号（倒序）</th>
+        <th>概率</th>
+      </tr>
+    </tbody>
+    <tbody id="results"></tbody>
+  </table>
+  <button onclick="postPage()">下一页</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    let currentPage = 0
+    let allItems = [] // 全部数据
+    const results = document.querySelector('#results')
+    const reFullTBody = arr => {
+      let innerHtml = ''
+      arr.forEach((item, i) => {
+        item.rate = item.totalNum / item.requestNum * 100
+        let tr = `
+          <tr onclick="window.open('https://try.taobao.com/item.htm?id=${item.id}')">
+            <td>${i + 1}</td>
+            <td>${item.rate.toFixed(3) + '%'}</td>
+          </tr>
+          `
+        if (item.rate > 5) tr = tr.replace('<tr', '<tr class="warning"')
+        innerHtml += tr
+      })
+      results.innerHTML = innerHtml
+    }
+
+    const postPage = () => {
+      $.post('/table', { page: currentPage }, res => {
+        allItems = [...allItems, ...res]
+        currentPage--
+        allItems.sort((a, b) => b.rate - a.rate)
+        reFullTBody(allItems)
+      })
+    }
+      // postPage()
+    $.get('/total', res => {
+      currentPage = res.pages
+      postPage()
+    })
+  </script>
+</body>
+
+</html>
