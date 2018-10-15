@@ -33,6 +33,7 @@
       <tr>
         <th>序号（倒序）</th>
         <th>概率</th>
+        <th>名字</th>
       </tr>
     </tbody>
     <tbody id="results"></tbody>
@@ -52,6 +53,7 @@
           <tr onclick="window.open('https://try.taobao.com/item.htm?id=${item.id}')">
             <td>${i + 1}</td>
             <td>${item.rate.toFixed(3) + '%'}</td>
+            <td>${item.title}</td>
           </tr>
           `
         if (item.rate > 5) tr = tr.replace('<tr', '<tr class="warning"')
