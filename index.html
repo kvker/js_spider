@@ -11,6 +11,12 @@
       color: red;
     }
 
+    button {
+      width: 100px;
+      height: 44px;
+      margin-right: 44px;
+    }
+
     table {
       border: 1px solid #d8d8d8;
       border-collapse: collapse;
@@ -29,6 +35,7 @@
 
 <body>
   <button onclick="postPage()">下一页</button>
+  <span id="currentPage"></span>
   <table>
     <tbody>
       <tr>
@@ -45,6 +52,7 @@
     let currentPage = 0
     let allItems = [] // 全部数据
     const results = document.querySelector('#results')
+    const currentPageText = document.querySelector('#currentPage')
     const reFullTBody = arr => {
       let innerHtml = ''
       arr.forEach((item, i) => {
@@ -59,6 +67,7 @@
         if (item.rate > 5) tr = tr.replace('<tr', '<tr class="warning"')
         innerHtml += tr
       })
+      currentPageText.innerText = `当前页：${currentPage}`
       results.innerHTML = innerHtml
     }
 
