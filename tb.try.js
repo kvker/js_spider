@@ -98,6 +98,7 @@ app.post('/table', async (req, res, next) => {
   // res.send(newItems)
 })
 
-app.listen(3000, function() {
-  console.log('app is listening at port 3000')
+const hostInfo = require('./hostInfo')
+app.listen(hostInfo.port, hostInfo.host, function() {
+  console.log(hostInfo.host + ':' + hostInfo.port)
 })
