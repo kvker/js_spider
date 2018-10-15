@@ -72,7 +72,7 @@ app.get('/total', async (req, res) => {
 })
 
 app.post('/table', async (req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   const result = await postPage({
     page: req.body.page
   })
