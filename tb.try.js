@@ -76,8 +76,13 @@ app.post('/table', async (req, res, next) => {
   const result = await postPage({
     page: req.body.page
   })
+  const items = result.items
+  const currentTime = new Date().getTime()
+  items.filter(i => {
+    return i.endTime - currentTime < 86400000
+  }) // 一天内结束
 
-  res.send(result.items.map(item => ({
+  res.send(items.map(item => ({
     ...item,
     rate: item.totalNum / item.requestNum * 100
   })))

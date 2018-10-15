@@ -49,8 +49,10 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    let currentPage = 0
+    let currentPage = 0 // 当前页面
     let allItems = [] // 全部数据
+    let currentTime = 0 // 锁频率使用，标记上次时间
+    const loopInterval = 2 // 锁频率步长，单位秒
     const results = document.querySelector('#results')
     const currentPageText = document.querySelector('#currentPage')
     const reFullTBody = arr => {
@@ -72,14 +74,26 @@
     }
 
     const postPage = () => {
+      // 锁频率步长内取消请求
+      const newTime = new Date().getTime()
+      const shoudBack = newTime - currentTime < loopInterval * 1000
+      if(shoudBack) {
+        alert(loopInterval + '秒内不要多次点击哦。')
+        return
+      }
+      currentTime = newTime
       $.post('/table', { page: currentPage }, res => {
+        if(res.length < 1) {
+          alert('今天结束的已经筛选完了')
+          return
+        }
         allItems = [...allItems, ...res]
-        currentPage--
         allItems.sort((a, b) => b.rate - a.rate)
         reFullTBody(allItems)
+        currentPage--
       })
     }
-      // postPage()
+
     $.get('/total', res => {
       currentPage = res.pages
       postPage()
