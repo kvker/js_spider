@@ -47,11 +47,11 @@
     <tbody id="results"></tbody>
   </table>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     let currentPage = 0 // 当前页面
     let allItems = [] // 全部数据
     let currentTime = 0 // 锁频率使用，标记上次时间
+    const xhr = new XMLHttpRequest()
     const loopInterval = 2 // 锁频率步长，单位秒
     const results = document.querySelector('#results')
     const currentPageText = document.querySelector('#currentPage')
@@ -82,22 +82,33 @@
         return
       }
       currentTime = newTime
-      $.post('/table', { page: currentPage }, res => {
-        if(res.length < 1) {
-          alert('今天结束的已经筛选完了')
-          return
+      xhr.onreadystatechange = function() {
+        if(this.readyState === 4 && this.status === 200) {
+          const res = JSON.parse(this.response)
+            if(res.length < 1) {
+            alert('今天结束的已经筛选完了')
+            return
+          }
+          allItems = [...allItems, ...res]
+          allItems.sort((a, b) => b.rate - a.rate)
+          reFullTBody(allItems)
+          currentPage--
         }
-        allItems = [...allItems, ...res]
-        allItems.sort((a, b) => b.rate - a.rate)
-        reFullTBody(allItems)
-        currentPage--
-      })
+      }
+      xhr.open('post', '/table')
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+      //发送请求
+      xhr.send("page=" + currentPage)
     }
 
-    $.get('/total', res => {
-      currentPage = res.pages
-      postPage()
-    })
+    xhr.onreadystatechange = function() {
+      if(this.readyState === 4 && this.status === 200) {
+        currentPage = JSON.parse(this.response).pages
+        postPage()
+      }
+    }
+    xhr.open('get', '/total')
+    xhr.send()
   </script>
 </body>
 
