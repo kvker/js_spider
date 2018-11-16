@@ -7,7 +7,7 @@
 
 ## run
 
-`npm start` or `yarn start`
+`npm run start` or `yarn start`
 
 then
 
