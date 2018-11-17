@@ -7,6 +7,44 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>tb try</title>
   <style>
+    body {
+      font-family: 'Microsoft YaHei';
+    }
+
+    .btn-page{
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      z-index: 1000;
+    }
+
+    .btn-page .btn-next {
+      width: 92px;
+      height: 36px;
+      line-height: 36px;
+      background: #4caf50;
+      color: #fff;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #currentPage {
+      height: 36px;
+      line-height: 36px;
+      background: #F9FBE7;
+      color: #666;
+      margin-left: 10px;
+      padding: 0 10px;
+    }
+
+    .main {
+      padding-bottom: 200px;
+    }
+
     .warning {
       color: red;
     }
@@ -18,34 +56,74 @@
     }
 
     table {
-      border: 1px solid #d8d8d8;
+      margin: 0 auto;
+      /* margin-top: 100px;  */
+      /* border: 1px solid #d8d8d8; */
       border-collapse: collapse;
     }
 
     tr {
       border-bottom: 1px solid #d8d8d8;
+      min-height: 48px;
+      line-height: 48px;
+      color: #333;
+    }
+
+    #results {
+    }
+
+    #results tr:hover {
+      background: #E6EE9C;
       cursor: pointer;
     }
 
-    tr:last-child {
-      border: 0;
+    #results tr:hover img {
+      display: block;
     }
+
+    #results tr img {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translate(110%);
+      width: 200px;
+      /* height: 200px; */
+      display: none;
+      background: #f99;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    td, th {
+      padding-left: 50px;
+      text-align: left;
+    }
+
+    td {
+      position: relative;
+    }
+
   </style>
 </head>
 
 <body>
-  <button onclick="postPage()">下一页</button>
-  <span id="currentPage"></span>
-  <table>
-    <tbody>
-      <tr>
-        <th>序号（倒序）</th>
-        <th>概率</th>
-        <th>名字</th>
-      </tr>
-    </tbody>
-    <tbody id="results"></tbody>
-  </table>
+  <section class="btn-page">
+    <div class="btn-next" onclick="postPage()">下一页</div>
+    <span id="currentPage"></span>
+  </section>
+  <section class="main">
+    <table>
+      <tbody class="table-head">
+        <tr>
+          <th>序号（倒序）</th>
+          <th>概率</th>
+          <th>名字</th>
+        </tr>
+      </tbody>
+      <tbody id="results"></tbody>
+    </table>
+  </section>
+
 
   <script>
     let currentPage = 0 // 当前页面
@@ -63,7 +141,8 @@
           <tr onclick="window.open('https://try.taobao.com/item.htm?id=${item.id}')">
             <td>${i + 1}</td>
             <td>${item.rate.toFixed(3) + '%'}</td>
-            <td>${item.title}</td>
+            <td>${item.title}<img src="${item.pic}"/></td>
+            
           </tr>
           `
         if (item.rate > 5) tr = tr.replace('<tr', '<tr class="warning"')
