@@ -26,7 +26,7 @@ function postPage(paylaod = {}) {
       // .set(':method', 'POST')
       // .set(':path', '/api3/call?what=show&page=1&pageSize&api=x%2Fsearch')
       // .set(':scheme', 'https')
-      .set('accept', 'pplication/json, text/javascript, */*; q=0.01')
+      .set('accept', 'aplication/json, text/javascript, */*; q=0.01')
       .set('accept-encoding', 'gzip, deflate, br')
       .set(
         'accept-language',
