@@ -105,5 +105,5 @@ app.post('/table', async (req, res, next) => {
 
 const hostInfo = require('./hostInfo')
 app.listen(hostInfo.port, hostInfo.host, function() {
-  console.log(hostInfo.host + ':' + hostInfo.port)
+  console.log('please open: http://' + hostInfo.host + ':' + hostInfo.port)
 })
