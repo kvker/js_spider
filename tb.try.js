@@ -1,7 +1,6 @@
 const express = require('express')
-// 调用 express 实例，它是一个函数，不带参数调用时，会返回一个 express 实例，将这个变量赋予 app 变量。
+const path = require('path')
 const superagent = require('superagent')
-// const cheerio = require('cheerio')
 const fs = require('fs')
 const app = express()
 let currentPage = 1 // 当前索引的 page
@@ -11,6 +10,7 @@ let currentPage = 1 // 当前索引的 page
 // const minInterval = 5 // 最小请求间隔，防封
 const bodyParser = require("body-parser")
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, './')))
 
 function postPage(paylaod = {}) {
   return new Promise((resolve, rej) => {
@@ -60,11 +60,11 @@ function postPage(paylaod = {}) {
   })
 }
 
-app.get('/', (req, res) => {
-  fs.readFile('index.html', 'utf-8', (err, f) => {
-    res.send(f)
-  })
-})
+//app.get('/', (req, res) => {
+//  fs.readFile('index.html', 'utf-8', (err, f) => {
+//    res.send(f)
+//  })
+//})
 
 app.get('/total', async (req, res) => {
   const result = await postPage()
