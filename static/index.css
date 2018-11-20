@@ -52,6 +52,7 @@ button {
 }
 
 table {
+  width: 100%;
   margin: 0 0 60px;
   border-collapse: collapse;
 }
@@ -88,7 +89,7 @@ tr {
 
 th:nth-child(1) { width: 10%; }
 th:nth-child(2) { width: 20%; }
-th:nth-child(3) { width: 50%; }
+th:nth-child(3) { width: 50%; text-align: left; }
 th:nth-child(4) { width: 20%; }
 
 th, td { text-align: center; }
