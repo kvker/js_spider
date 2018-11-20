@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node tb.try.js"
+    "start": "node tb.try.js &"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
