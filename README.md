@@ -1,5 +1,4 @@
 # Spider
-我就闲着没事，搞一下阿里试用排序，怎么滴吧。
 
 ## install
 
@@ -7,8 +6,10 @@
 
 ## run
 
-`npm run start` or `yarn start`
+### alibaba sort
+
+`npm run as`
 
 ## open
 
-browser open [http://localhost:8000/](http://localhost:8000/)
+browser open [http://localhost:3000/](http://localhost:3000/)
