@@ -103,7 +103,7 @@ app.post('/table', async (req, res, next) => {
   // res.send(newItems)
 })
 
-const hostInfo = require('./hostInfo')
+const hostInfo = require('./config/hostInfo')
 app.listen(hostInfo.port, hostInfo.host, function() {
   console.log('please open: http://' + hostInfo.host + ':' + hostInfo.port)
 })
