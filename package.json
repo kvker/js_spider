@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "as": "node ali_sort/main.js"
+    "as": "node ali_sort/main.js",
+    "pc": "node pixiv_col/main.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
