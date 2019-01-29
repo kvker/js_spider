@@ -8,8 +8,16 @@
 
 ### alibaba sort
 
+set Cookie in ali_sort/config/index.js
+
 `npm run as`
 
-## open
+#### open
 
 browser open [http://localhost:3000/](http://localhost:3000/)
+
+### pixiv collection
+
+set Cookie in pixiv/config/index.js
+
+`npm run pc`
