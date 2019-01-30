@@ -2,10 +2,12 @@ const config = require('./config/index')
 const request = require('superagent')
 const fs = require('fs')
 const cheerio = require('cheerio')
+const exec = require('child_process').exec
 // start page
 let page = 1
   , pageCurrentLength = 0
   , pageMaxLength = 1
+  , total = 1446
 
 function restart() {
   pageCurrentLength = 0
@@ -74,7 +76,11 @@ function downloadFile({ imgTitle, imgName, originImgUrl }) {
   req.pipe(stream)
 
   req.on('end', () => {
-    if(++pageCurrentLength >= pageMaxLength) restart(++page)
+    console.log(pageCurrentLength + pageMaxLength * page - pageMaxLength + 1 + '/' + total)
+    if(++pageCurrentLength >= pageMaxLength) {
+      restart(++page)
+      exec(`echo ${pageCurrentLength} >> pixiv_col/l.txt;echo ${page} >> pixiv_col/p.txt`)
+    }
   })
 }
 
