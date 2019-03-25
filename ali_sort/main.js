@@ -13,7 +13,7 @@ function postPage(paylaod = {}) {
       .post(`https://try.taobao.com/api3/call?what=show&page=${paylaod.page}&pageSize&api=x%2Fsearch`)
       .set('cookie', config.cookie)
       .set('referer', 'https://try.taobao.com')
-      .set('x-csrf-token', 'f0b8e7443eb7e')
+      .set('x-csrf-token', '7e885ad0b4833')
       .end((err, sres) => {
         // handle normal error
         if(err) {

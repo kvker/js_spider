@@ -13,11 +13,7 @@
 </head>
 
 <body>
-  <section class="btn-page">
-    <div class="btn-next" onclick="postPage()">下一页</div>
-    <span id="currentPage"></span>
-  </section>
-  <section class="main">
+  <main class="main">
     <table>
       <thead>
         <tr>
@@ -29,8 +25,12 @@
       </thead>
       <tbody id="results"></tbody>
     </table>
-  </section>
-  
+  </main>
+  <footer class="btn-page">
+    <div class="btn-next" onclick="postPage()">下一页</div>
+    <span id="currentPage"></span>
+  </footer>
+
   <script src="static/index.js"></script>
 </body>
 

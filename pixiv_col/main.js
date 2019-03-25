@@ -79,7 +79,7 @@ function downloadFile({ imgTitle, imgName, originImgUrl }) {
     console.log(pageCurrentLength + pageMaxLength * page - pageMaxLength + 1 + '/' + total)
     if(++pageCurrentLength >= pageMaxLength) {
       restart(++page)
-      exec(`echo ${pageCurrentLength} >> pixiv_col/l.txt;echo ${page} >> pixiv_col/p.txt`)
+      exec(`echo ${pageCurrentLength} >> pixiv_col/length.txt;echo ${page} >> pixiv_col/page.txt`)
     }
   })
 }

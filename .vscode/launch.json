@@ -7,7 +7,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "启动程序",
+      "name": "xxqg",
+      "program": "${workspaceFolder}/xxqg/main.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "pix",
       "program": "${workspaceFolder}/pixiv_col/main.js"
     }
   ]

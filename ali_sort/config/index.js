@@ -2,5 +2,5 @@ module.exports = {
   host: 'localhost',
   port: 8000,
   // config yourself cookie, copy from try.taobao.com when you have login.
-  cookie: ''
+  cookie: 'thw=cn; cna=6Gp8FF8b93sCAXrqyF1paQHz; t=dfc73e41a5ce7d988f53d3fc01edc160; tg=0; enc=F0XpEiWD5033GpkMF0G9runorBKzv3P6ukH4YLzpuQcvZOghhIgVkjl4Wbj57yd8lJr9zUcYaZddYJHX0kUS2w%3D%3D; hng=CN%7Czh-CN%7CCNY%7C156; miid=1208990599415893608; _fbp=fb.1.1551956923738.2027395627; tracknick=oshri; lgc=oshri; v=0; cookie2=12510959a87db5e9e8e23bccd645299c; _tb_token_=7e885ad0b4833; _mw_us_time_=1553404206413; unb=438035375; sg=i53; _l_g_=Ug%3D%3D; skt=4d40b1a963d19a98; cookie1=VASo1QwArXdiRIpDqIIZnmkAdms%2F4BUn1xU6bp7Ul7A%3D; csg=ba351c4b; uc3=vt3=F8dByErZRcsTZBHZoBo%3D&id2=Vy%2BXKuBsrhov&nk2=DMKkEBc%3D&lg2=WqG3DMC9VAQiUQ%3D%3D; existShop=MTU1MzQwNDIxMw%3D%3D; _cc_=VFC%2FuZ9ajQ%3D%3D; dnk=oshri; _nk_=oshri; cookie17=Vy%2BXKuBsrhov; uc1=cookie16=UtASsssmPlP%2Ff1IHDsDaPRu%2BPw%3D%3D&cookie21=WqG3DMC9EdFp7qHuZlEv%2BQ%3D%3D&cookie15=W5iHLLyFOGW7aA%3D%3D&existShop=true&pas=0&cookie14=UoTZ502EmOJQFQ%3D%3D&tag=10&lng=zh_CN; mt=ci=79_1; l=bBrKZ7GIvPTTWsi3BOCwourza77OSIRAguPzaNbMi_5Ct6L_NxQOlTfyrFp6Vj5RszTB4iMXhJw9-etXi; isg=BJGRzUgLqTcOWMJCsDjh3lR0oJvrVgwdc8IXvnMmjdh3GrFsu04VQD98vK5ZEp2o'
 }
