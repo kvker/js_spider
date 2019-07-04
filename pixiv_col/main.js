@@ -3,10 +3,14 @@ const request = require('superagent')
 const fs = require('fs')
 const cheerio = require('cheerio')
 const exec = require('child_process').exec
-let page = 1
+let page = 23
 let pageCurrentLength = 0
 let pageMaxLength = 1
 let total = 0
+
+// 清空上次记录
+exec(`> pixiv_col/progress.txt`)
+exec(`echo ${new Date().toLocaleString()} > pixiv_col/progress.txt`)
 
 /**
  * cookie配置在：./config/index.js -> cookie后面的引号内
@@ -43,19 +47,19 @@ function getPageImgs() {
       if(!total) total = +$('.bookmark-tag-all')[0].firstChild.data.match(/\d+/)[0]
 
       pageMaxLength = thumbnails.length
-      Array.from(thumbnails).forEach(async (thumbnail, index) => {
+      Array.from(thumbnails).forEach((thumbnail, index) => {
         let imgUrl = thumbnail.attribs['data-src']
         let imgFix = imgUrl.match(/\.\w+$/)[0]
         let imgTitle = titles[index].attribs.title
         let imgName = imgTitle + imgFix
         let originImgUrl = imgUrl.replace(/\/c\/150x150\/img-master(.*?)_master1200/, '/img-original$1')
 
-        checkLinkStatus({ imgTitle, imgName, originImgUrl }, index)
+        checkLinkStatus({ imgTitle, imgName, originImgUrl })
       })
     })
 }
 
-function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
+function checkLinkStatus({ imgTitle, imgName, originImgUrl }) {
   request.head(originImgUrl)
     .set('cookie', config.cookie)
     .set('referer', config.referer)
@@ -74,11 +78,11 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
         }
       }
       // 每三秒处理一张，别太急，容易出问题。。。比如，封号
-      setTimeout(downloadFile.bind(null, { imgTitle, imgName, originImgUrl }), config.timeout * index);
+      downloadFile({ imgTitle, imgName, originImgUrl })
     })
 }
 
-function downloadFile({ imgTitle, imgName, originImgUrl }) {
+function downloadFile({ imgName, originImgUrl }) {
   let stream = fs.createWriteStream(`./pixiv_col/imgs/${imgName.replace(/\//g, '')}`)
   let req = request.get(originImgUrl)
     .set('cookie', config.cookie)
@@ -88,15 +92,14 @@ function downloadFile({ imgTitle, imgName, originImgUrl }) {
 
   req.on('end', () => {
     // 有兴趣看控制台的可以保留下面一行不注释
-    let downloadsLength = pageCurrentLength + pageMaxLength * page - pageMaxLength + 1
-    exec(`echo ${downloadsLength}/${total}`)
-    exec(`echo ${downloadsLength}/${total} >> pixiv_col/length.txt`)
+    let downloadsLength = pageCurrentLength + 20 * (page - 1)
+    exec(`echo ${downloadsLength}/${total} --- ${imgName} --- >> pixiv_col/progress.txt`)
 
     // 超过当前页数的数量，就进行下一页
     if(++pageCurrentLength >= pageMaxLength) {
-      getPageImgs(++page)
       // 保存进度日志，随便写的，想咋玩，自行完善下
-      exec(`echo ${page} >> pixiv_col/page.txt`)
+      exec(`echo ---- page${page++} have done!!! ---- >> pixiv_col/progress.txt`)
+      getPageImgs()
     }
   })
 }
