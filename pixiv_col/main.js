@@ -3,7 +3,7 @@ const request = require('superagent')
 const fs = require('fs')
 const cheerio = require('cheerio')
 const exec = require('child_process').exec
-let page = 1
+let page = 26 // 起始页面，如果中间断了，可以从这里连上去
 let pageCurrentLength = 0
 let pageMaxLength = 1
 let total = 0
@@ -52,12 +52,17 @@ function getPageImgs() {
       pageMaxLength = thumbnails.length
       Array.from(thumbnails).forEach((thumbnail, index) => {
         let imgUrl = thumbnail.attribs['data-src']
-        let imgFix = imgUrl.match(/\.\w+$/)[0]
-        let imgTitle = titles[index].attribs.title
-        let imgName = imgTitle + imgFix
-        let originImgUrl = imgUrl.replace(/\/c\/150x150\/img-master(.*?)_master1200/, '/img-original$1')
+        // 作者删除资源导致爆掉问题处理
+        try {
+          let imgFix = imgUrl.match(/\.\w+$/)[0]
+          let imgTitle = titles[index].attribs.title
+          let imgName = imgTitle + imgFix
+          let originImgUrl = imgUrl.replace(/\/c\/150x150\/img-master(.*?)_master1200/, '/img-original$1')
 
-        checkLinkStatus({ imgTitle, imgName, originImgUrl })
+          checkLinkStatus({ imgTitle, imgName, originImgUrl })
+        } catch(error) {
+          pageCurrentLength++
+        }
       })
     })
 }
@@ -87,7 +92,8 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }) {
 
 function downloadFile({ imgName, originImgUrl }) {
   // 写入文件夹
-  let stream = fs.createWriteStream(`./pixiv_col/imgs/${page}/${imgName.replace(/\//g, '')}`)
+  let filePath = `./pixiv_col/imgs/${page}/${imgName.replace(/\//g, '')}`
+  let stream = fs.createWriteStream(filePath)
   let req = request.get(originImgUrl)
     .set('cookie', config.cookie)
     .set('referer', config.referer)
@@ -96,7 +102,7 @@ function downloadFile({ imgName, originImgUrl }) {
 
   req.on('end', () => {
     let downloadsLength = pageCurrentLength + 20 * (page - 1)
-      // 保存每一个完成的进度日志
+    // 保存每一个完成的进度日志
     exec(`echo ${downloadsLength}/${total} --- ${imgName} >> pixiv_col/progress.txt`)
     console.log(`${downloadsLength}/${total} --- ${imgName}`)
 
