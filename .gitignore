@@ -1,2 +1,3 @@
 node_modules/
-pixiv_col/imgs/
+pixiv_col/imgs/*.jpg
+pixiv_col/imgs/*.png
