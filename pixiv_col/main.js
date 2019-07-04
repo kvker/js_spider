@@ -3,7 +3,7 @@ const request = require('superagent')
 const fs = require('fs')
 const cheerio = require('cheerio')
 const exec = require('child_process').exec
-let page = 23
+let page = 1
 let pageCurrentLength = 0
 let pageMaxLength = 1
 let total = 0
@@ -29,6 +29,9 @@ exec(`echo ${new Date().toLocaleString()} > pixiv_col/progress.txt`)
  * 获取每一页的内容
  */
 function getPageImgs() {
+  // 创建关于页的文件夹
+  exec(`mkdir pixiv_col/imgs/${page}/`)
+
   pageCurrentLength = 0
   request
     .get(`https://www.pixiv.net/bookmark.php?rest=show&p=${page}`)
@@ -83,7 +86,8 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }) {
 }
 
 function downloadFile({ imgName, originImgUrl }) {
-  let stream = fs.createWriteStream(`./pixiv_col/imgs/${imgName.replace(/\//g, '')}`)
+  // 写入文件夹
+  let stream = fs.createWriteStream(`./pixiv_col/imgs/${page}/${imgName.replace(/\//g, '')}`)
   let req = request.get(originImgUrl)
     .set('cookie', config.cookie)
     .set('referer', config.referer)
@@ -91,13 +95,13 @@ function downloadFile({ imgName, originImgUrl }) {
   req.pipe(stream)
 
   req.on('end', () => {
-    // 有兴趣看控制台的可以保留下面一行不注释
     let downloadsLength = pageCurrentLength + 20 * (page - 1)
+      // 保存每一个完成的进度日志
     exec(`echo ${downloadsLength}/${total} --- ${imgName} --- >> pixiv_col/progress.txt`)
 
     // 超过当前页数的数量，就进行下一页
     if(++pageCurrentLength >= pageMaxLength) {
-      // 保存进度日志，随便写的，想咋玩，自行完善下
+      // 保存每一页完成的进度日志
       exec(`echo ---- page${page++} have done!!! ---- >> pixiv_col/progress.txt`)
       getPageImgs()
     }
