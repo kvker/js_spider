@@ -9,6 +9,16 @@ let pageMaxLength = 1
 let total = 0
 
 /**
+ * 请自行配置你的cookie！！！
+ * 请自行配置你的cookie！！！
+ * 请自行配置你的cookie！！！
+ * 请自行配置你的cookie！！！
+ * 请自行配置你的cookie！！！
+ * 请自行配置你的cookie！！！
+ * 请自行配置你的cookie！！！
+ */
+
+/**
  * 获取每一页的内容
  */
 function getPageImgs() {
@@ -22,6 +32,7 @@ function getPageImgs() {
         console.log(err)
       }
       const result = res.text
+      // 加载为伪JQ
       $ = cheerio.load(result)
       let thumbnails = $('._layout-thumbnail>img')
       let titles = $('a>h1.title')
@@ -46,6 +57,7 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
     .set('cookie', config.cookie)
     .set('referer', config.referer)
     .end((err, res) => {
+      // 那啥，缩略图跟实际大小图，后缀不一定一样，你可以自己浏览几张看看就知道了
       if(err) {
         let originImgUrlFix = originImgUrl.match(/\.\w+$/)[0]
         let png = '.png'
@@ -53,12 +65,12 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
         if(originImgUrlFix === png) {
           imgName = imgTitle + jpg
           originImgUrl = originImgUrl.replace(/\.\w+$/, jpg)
-        }
-        else {
+        } else {
           imgName = imgTitle + png
           originImgUrl = originImgUrl.replace(/\.\w+$/, png)
         }
       }
+      // 每三秒处理一张，别太急，容易出问题。。。比如，封号
       setTimeout(downloadFile.bind(null, { imgTitle, imgName, originImgUrl }), config.timeout * index);
     })
 }
@@ -66,15 +78,19 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
 function downloadFile({ imgTitle, imgName, originImgUrl }) {
   let stream = fs.createWriteStream(`./pixiv_col/imgs/${imgName.replace(/\//g, '')}`)
   let req = request.get(originImgUrl)
-      .set('cookie', config.cookie)
-      .set('referer', config.referer)
+    .set('cookie', config.cookie)
+    .set('referer', config.referer)
 
   req.pipe(stream)
 
   req.on('end', () => {
+    // 有兴趣看控制台的可以保留下面一行不注释
     console.log(pageCurrentLength + pageMaxLength * page - pageMaxLength + 1 + '/' + total)
+
+    // 超过当前页数的数量，就进行下一页
     if(++pageCurrentLength >= pageMaxLength) {
       getPageImgs(++page)
+      // 保存进度日志，随便写的，想咋玩，自行完善下
       exec(`echo ${pageCurrentLength} >> pixiv_col/length.txt;echo ${page} >> pixiv_col/page.txt`)
     }
   })
