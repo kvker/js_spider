@@ -88,13 +88,15 @@ function downloadFile({ imgTitle, imgName, originImgUrl }) {
 
   req.on('end', () => {
     // 有兴趣看控制台的可以保留下面一行不注释
-    console.log(pageCurrentLength + pageMaxLength * page - pageMaxLength + 1 + '/' + total)
+    let downloadsLength = pageCurrentLength + pageMaxLength * page - pageMaxLength + 1
+    exec(`echo ${downloadsLength}/${total}`)
+    exec(`echo ${downloadsLength}/${total} >> pixiv_col/length.txt`)
 
     // 超过当前页数的数量，就进行下一页
     if(++pageCurrentLength >= pageMaxLength) {
       getPageImgs(++page)
       // 保存进度日志，随便写的，想咋玩，自行完善下
-      exec(`echo ${pageCurrentLength} >> pixiv_col/length.txt;echo ${page} >> pixiv_col/page.txt`)
+      exec(`echo ${page} >> pixiv_col/page.txt`)
     }
   })
 }
