@@ -97,13 +97,15 @@ function downloadFile({ imgName, originImgUrl }) {
   req.on('end', () => {
     let downloadsLength = pageCurrentLength + 20 * (page - 1)
       // 保存每一个完成的进度日志
-    exec(`echo ${downloadsLength}/${total} --- ${imgName} --- >> pixiv_col/progress.txt`)
+    exec(`echo ${downloadsLength}/${total} --- ${imgName} >> pixiv_col/progress.txt`)
+    console.log(`${downloadsLength}/${total} --- ${imgName}`)
 
     // 超过当前页数的数量，就进行下一页
     if(++pageCurrentLength >= pageMaxLength) {
       // 保存每一页完成的进度日志
-      exec(`echo ---- page${page++} have done!!! ---- >> pixiv_col/progress.txt`)
-      getPageImgs()
+      exec(`echo ---- page${page} have done!!! ---- >> pixiv_col/progress.txt`)
+      console.log(`---- page${page} have done!!! ----`)
+      getPageImgs(++page)
     }
   })
 }

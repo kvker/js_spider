@@ -1,4 +1,4 @@
 node_modules/
 pixiv_col/imgs/
-pixiv_col/length.txt
-pixiv_col/page.txt
+pixiv_col/config/cookie.js
+pixiv_col/progress.txt
