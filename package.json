@@ -4,8 +4,8 @@
     "pc": "node pixiv_col/main.js"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.4",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
     "superagent": "^4.0.0-beta.5"
   }
 }
