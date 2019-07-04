@@ -9,6 +9,9 @@ let pageMaxLength = 1
 let total = 0
 
 /**
+ * cookie配置在：./config/index.js -> cookie后面的引号内
+ * 获取方式，登录Pixiv后，打开控制台刷新查看NetWork->Doc里面的.php后缀请求，找到Request相关，里面有cookie，复制来就行
+ *
  * 请自行配置你的cookie！！！
  * 请自行配置你的cookie！！！
  * 请自行配置你的cookie！！！
