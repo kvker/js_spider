@@ -31,6 +31,7 @@ function getPageImgs() {
     .set('cookie', config.cookie)
     .set('referer', config.referer)
     .end((err, res) => {
+      console.log(res)
       if(err) {
         console.log(err)
       }
@@ -50,13 +51,18 @@ function getPageImgs() {
         let imgName = imgTitle + imgFix
         let originImgUrl = imgUrl.replace(/\/c\/150x150\/img-master(.*?)_master1200/, '/img-original$1')
 
-        checkLinkStatus({ imgTitle, imgName, originImgUrl }, index)
+        downloadFile(await checkLinkStatus({ imgTitle, imgName, originImgUrl }))
       })
     })
 }
 
-function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
-  request.head(originImgUrl)
+/**
+ * 检查链接后缀是否存在图，不存在则替换链接后缀
+ * @param {*} param0
+ * @param {*} index
+ */
+async function checkLinkStatus({ imgTitle, imgName, originImgUrl }) {
+  await request.head(originImgUrl)
     .set('cookie', config.cookie)
     .set('referer', config.referer)
     .end((err, res) => {
@@ -73,12 +79,11 @@ function checkLinkStatus({ imgTitle, imgName, originImgUrl }, index) {
           originImgUrl = originImgUrl.replace(/\.\w+$/, png)
         }
       }
-      // 每三秒处理一张，别太急，容易出问题。。。比如，封号
-      setTimeout(downloadFile.bind(null, { imgTitle, imgName, originImgUrl }), config.timeout * index);
+      return { imgName, originImgUrl }
     })
 }
 
-function downloadFile({ imgTitle, imgName, originImgUrl }) {
+function downloadFile({ imgName, originImgUrl }) {
   let stream = fs.createWriteStream(`./pixiv_col/imgs/${imgName.replace(/\//g, '')}`)
   let req = request.get(originImgUrl)
     .set('cookie', config.cookie)
