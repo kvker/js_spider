@@ -38,7 +38,6 @@ function getPageImgs() {
     .set('cookie', config.cookie)
     .set('referer', config.referer)
     .end((err, res) => {
-      console.log(res)
       if(err) {
         console.log(err)
       }
