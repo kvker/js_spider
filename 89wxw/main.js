@@ -7,10 +7,10 @@ const request = charset(superagent)
 const config = require('./config')
 const express = require('express')
 const cp = require('child_process')
-// 两小时后重置
+// 一小时重置一次
 setTimeout(() => {
   cp.exec('pm2 restart 89wxw')
-}, 2 * 60 * 60 * 1000)
+}, 60 * 60 * 1000)
 
 const app = express()
 
