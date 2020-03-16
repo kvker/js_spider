@@ -52,7 +52,7 @@ loadRoot(config.url, config.name)
 async function loadRoot(url) {
   if(url.trim().length && url.startsWith('http')) {
     try {
-      let ret = await request.get(url).charset('gbk')
+      let ret = await request.get(url).charset('gbk').buffer(true)
       // console.log(ret.text)
       const $ = cheerio.load(ret.text)
       // 解析目录
@@ -94,7 +94,7 @@ async function loadRoot(url) {
 function downloadContent(path, title) {
   return new Promise(async (resolve, reject) => {
     try {
-      let ret = await request.get('http://www.89wxw.cn' + path).charset('gbk')
+      let ret = await request.get('http://www.89wxw.cn' + path).charset('gbk').buffer(true)
       const $ = cheerio.load(ret.text)
       let content = `
         ${title}
