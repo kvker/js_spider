@@ -1,4 +1,4 @@
-const config = require('./config/index')
+const config = require('./config')
 const express = require('express')
 const path = require('path')
 const superagent = require('superagent')
