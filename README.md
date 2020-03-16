@@ -1,18 +1,18 @@
 # Spider
 
-## install
+日常脚本/爬虫.
 
-`npm i` or `yarn`
+## 安装
 
-## run
+`npm i` 安装依赖
 
-### alibaba sort
+## 运行
 
-set Cookie in ali_sort/config/index.js
+### 阿里试用排序
 
-`touch ali_sort/config.js`
+`touch ali_sort/config.js` 创建配置文件
 
-set like this in it:
+写入如下内容, cookie请自行使用自己的.
 
 ```js
 module.exports = {
@@ -23,14 +23,20 @@ module.exports = {
 }
 ```
 
-`npm run as`
-
-#### open
-
-browser open [http://localhost:3000/](http://localhost:3000/)
+`npm run ali_sort`
 
 ### pixiv collection
 
-set Cookie in pixiv/config/index.js
+`touch pixiv/config/cookie.js` 创建cookie文件
 
-`npm run pc`
+`pixiv/config/cookie.js` 写入cookie
+
+`npm run pc` 运行
+
+### 89wxw
+
+89文学网爬虫
+
+`89wxw/config.js` 为配置文件
+
+`npm run 89wxw` 运行
