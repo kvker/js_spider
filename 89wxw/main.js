@@ -38,7 +38,6 @@ app.listen(4800, () => {
 })
 
 loadRoot(config.url, config.name)
-// downloadContent('/0/524/572070.html', '1', '放开那个女巫')
 
 async function loadRoot(url, name) {
   if(url.trim().length && url.startsWith('http')) {
