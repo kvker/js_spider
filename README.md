@@ -45,4 +45,4 @@ module.exports = {
 
 `89wxw/config.js` 为配置文件
 
-`npm run 89wxw` 运行
+`pm2 start npm -n 89wxw -- run 89wxw` pm2运行为了可以被踢重连
