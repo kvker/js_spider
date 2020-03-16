@@ -55,8 +55,6 @@ async function loadRoot(url, name) {
         }
       }).get()
       total_length = pages.length
-      // 清空原数据, 重新来
-      // fs.writeFileSync(`data/${config.name}.txt`, '')
       let i = 0
       for(const page of pages) {
         if(i < save_progress) {
@@ -87,7 +85,7 @@ function downloadContent(path, title) {
     --------------------------------------------------------------------------------------------------------------
 
   `
-    fs.appendFileSync(`data/${config.name}.txt`, content)
+    fs.appendFileSync(`89wxw/data/${config.name}.txt`, content)
     fs.writeFileSync(`89wxw/progress`, current_length)
     setTimeout(() => {
       resolve()
