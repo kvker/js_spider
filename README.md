@@ -10,6 +10,8 @@
 
 ### 阿里试用排序
 
+![示例](static/img/ali_sort.png)
+
 `touch ali_sort/config.js` 创建配置文件
 
 写入如下内容, cookie请自行使用自己的.
@@ -27,6 +29,8 @@ module.exports = {
 
 ### pixiv collection
 
+![示例](static/img/pixiv_col.png)
+
 `touch pixiv/config/cookie.js` 创建cookie文件
 
 `pixiv/config/cookie.js` 写入cookie
@@ -36,6 +40,8 @@ module.exports = {
 ### 89wxw
 
 89文学网爬虫
+
+![示例](static/img/89wxw.png)
 
 `89wxw/config.js` 为配置文件
 
