@@ -33,6 +33,7 @@ app.get('/progress', (req, res) => {
   })
 })
 
+// 进度监控网站
 app.listen(4800, () => {
   console.log('spider run in: ' + 'http://localhost:4800')
 })
@@ -60,8 +61,8 @@ async function loadRoot(url, name) {
           i++
           continue
         }
-        await downloadContent(page.href, page.label)
         current_length++
+        await downloadContent(page.href, page.label)
         i++
       }
     } catch(error) {
