@@ -1,0 +1,5 @@
+node_modules/
+pixiv_col/imgs/
+pixiv_col/config/cookie.js
+pixiv_col/progress.txt
+ali_sort/config/index.js

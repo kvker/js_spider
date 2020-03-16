@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="将阿里试用还有一天就结束的商品，按照倒序、概率（人数/提供数）排序，最大可能薅羊毛。">
+  <meta name="keywords" content="阿里试用,天猫试用,淘宝试用,京东试用,什么值得买,百度试用">
+  <title>阿里试用 - 一日内完结排序工具</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://img.alicdn.com/favicon.ico">
+  <link rel="stylesheet" href="static/index.css">
+</head>
+
+<body>
+  <main class="main">
+    <table>
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>概率</th>
+          <th>名字</th>
+          <th>缩略图</th>
+        </tr>
+      </thead>
+      <tbody id="results"></tbody>
+    </table>
+  </main>
+  <footer class="btn-page">
+    <div class="btn-next" onclick="postPage()">下一页</div>
+    <span id="currentPage"></span>
+  </footer>
+
+  <script src="static/index.js"></script>
+</body>
+
+</html>

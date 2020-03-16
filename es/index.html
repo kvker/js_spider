@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A站搜索演示</title>
+</head>
+
+<body>
+  <input id="search-val" type="text" placeholder="输入搜索内容">
+  <input id="page" type="text" placeholder="输入页数">
+  <button onclick='search()'>点击搜索</button>
+
+  <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+  <script>
+    function search() {
+      var search_val = document.querySelector('#search-val').value
+      if(!search_val.trim()) {
+        alert('你倒是输入搜索内容啊')
+        return
+      }
+      var page = document.querySelector('#page').value
+      axios.get('https://www.acfun.cn/rest/pc-direct/search/video?keyword=' + search_val + '&pCursor=' + (page || 1) + '&channelId=0&sortType=1&requestId=')
+    }
+  </script>
+</body>
+
+</html>
