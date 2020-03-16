@@ -27,7 +27,9 @@ module.exports = {
 
 `npm run ali_sort`
 
-### pixiv collection
+### pixiv 个人收藏夹
+
+**请自行科学上网**
 
 ![示例](static/img/pixiv_col.png)
 
